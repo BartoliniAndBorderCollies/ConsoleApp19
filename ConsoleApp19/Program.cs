@@ -19,8 +19,43 @@ namespace ConsoleApp19
 
         class Person
         {
-            public string Name { get; set; }
-            public byte Age { get; set; }
+            //prywatne pola
+            private string _name;
+            private byte _age;
+
+            //wlasciwosci publiczne z walidacją
+            public string Name 
+            {
+                get { return _name; }
+                set
+                {
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        Console.WriteLine("Błąd: Name nie moze być puste. Ustawiono domyslną wartośc 'Nieznane'");
+                        _name = "Nieznane";
+                    }
+                    else
+                    {
+                        _name = value;
+                    }
+                } 
+            }
+            public byte Age 
+            {
+                get { return _age; } 
+                set
+                {
+                    if (value > 140)
+                    {
+                        Console.WriteLine($"Bład: Age musi być w przedziale 0-140. Ustawiono domyslną wartość");
+                        _age = 0;
+                    }
+                    else
+                    {
+                        _age = value;
+                    }
+                }
+            }
             public FavouriteColor Color { get; set; }
 
             //konstruktor domyślny
@@ -80,7 +115,7 @@ namespace ConsoleApp19
             Person person3 = new Person("Eliza", 34);
             person3.Info();
 
-            Person person4 = new Person("Paweł", 33, FavouriteColor.NIEBIESKI);
+            Person person4 = new Person("", 163, FavouriteColor.NIEBIESKI);
             person4.Info();
 
             Person person5 = new Person(person3);
